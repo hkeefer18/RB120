@@ -260,17 +260,6 @@ class Hand
     @cards = []
   end
 
-  def total_without_aces
-    sum = 0
-    cards.reject { |card| card == 'Ace' }.each do |card|
-      case card
-      when 'Jack', 'Queen', 'King' then sum += 10
-      else sum += card
-      end
-    end
-    sum
-  end
-
   def total
     current_total = total_without_aces
     aces = cards.select { |card| card == 'Ace' }
@@ -289,6 +278,23 @@ class Hand
     (total > other.total || other.busted?) && !busted?
   end
 
+  def to_s
+    joinand(cards)
+  end
+
+  private
+
+  def total_without_aces
+    sum = 0
+    cards.reject { |card| card == 'Ace' }.each do |card|
+      case card
+      when 'Jack', 'Queen', 'King' then sum += 10
+      else sum += card
+      end
+    end
+    sum
+  end
+
   def joinand(array)
     case array.size
     when 1 then array[0]
@@ -297,10 +303,6 @@ class Hand
       array[0..-2].join(', ') + ', and ' + array[-1].to_s
     end
   end
-
-  def to_s
-    joinand(cards)
-  end
 end
 
 class Participant
@@ -308,10 +310,6 @@ class Participant
 
   attr_accessor :hand, :score
   attr_writer :name
-
-  def pause
-    sleep 1.75
-  end
 
   def hit(new_card)
     puts "#{self} chose to hit."
@@ -334,6 +332,12 @@ class Participant
 
   def to_s
     @name
+  end
+
+  private
+
+  def pause
+    sleep 1.75
   end
 end
 
