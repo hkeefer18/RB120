@@ -119,12 +119,12 @@ class Game
 
   def show_player_cards_and_one_dealer
     show_player_cards(player)
-    puts "#{dealer.name} has #{dealer.one_card} and unknown card."
+    puts "#{dealer} has #{dealer.one_card} and unknown card."
   end
 
   def show_player_cards(participant)
-    puts "#{participant.name} has #{participant.hand}."
-    puts "#{participant.name}'s total is #{participant.hand.total}."
+    puts "#{participant} has #{participant.hand}."
+    puts "#{participant}'s total is #{participant.hand.total}."
     puts ''
   end
 
@@ -154,18 +154,19 @@ class Game
   end
 
   def display_result
-    puts "#{player.name} had #{player.hand}."
-    puts "#{dealer.name} had #{dealer.hand}.\n "
+    puts "#{player} had #{player.hand}."
+    puts "#{dealer} had #{dealer.hand}.\n "
     puts 'Round Points:'
-    display_final_total(player)
-    display_final_total(dealer)
+    display_final_total
     puts ''
     display_winner
   end
 
-  def display_final_total(participant)
-    puts "#{participant.name} - #{participant.hand.total}" +
-         bust_message_if_bust(participant)
+  def display_final_total
+    puts "#{player} - #{player.hand.total}" +
+         bust_message_if_bust(player)
+    puts "#{dealer} - #{dealer.hand.total}" +
+         bust_message_if_bust(dealer)
   end
 
   def bust_message_if_bust(participant)
@@ -191,8 +192,8 @@ class Game
 
   def display_score
     puts 'Player Scores:'
-    puts "#{player.name} - #{player.score}"
-    puts "#{dealer.name} - #{dealer.score}"
+    puts "#{player} - #{player.score}"
+    puts "#{dealer} - #{dealer.score}"
     puts ''
     puts "#{champion} is the champion!\n " if champion
   end
@@ -305,7 +306,8 @@ end
 class Participant
   include Clearable
 
-  attr_accessor :hand, :name, :score
+  attr_accessor :hand, :score
+  attr_writer :name
 
   def pause
     sleep 1.75
@@ -331,7 +333,7 @@ class Participant
   end
 
   def to_s
-    name
+    @name
   end
 end
 
