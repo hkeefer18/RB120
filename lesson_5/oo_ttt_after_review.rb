@@ -380,7 +380,6 @@ class Computer < Player
     @name = NAMES.sample
   end
 
-
   def move(board)
     square = board.find_best_square(:offense)
     square ||= board.find_best_square(:defense)
