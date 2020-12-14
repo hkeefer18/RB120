@@ -279,15 +279,13 @@ class Hand
   private
 
   def total_of_aces
-    aces_values = []
     current_total = total_without_aces
     aces = cards.select { |card| card == 'Ace' }
-    aces.each do |_ace|
+    aces.map do |_ace|
       value = current_total <= 10 ? 11 : 1
       current_total += value
-      aces_values << value
-    end
-    aces_values.sum
+      value
+    end.sum
   end
 
   def total_without_aces
