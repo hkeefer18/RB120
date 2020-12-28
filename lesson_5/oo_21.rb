@@ -95,7 +95,7 @@ class Game
     puts 'If you choose to hit, you will be dealt another card.'
     puts "If your total exceeds 21 after you hit, you bust and dealer wins.\n "
     puts "If you choose to stay, your turn ends and it's now dealer's turn.\n "
-    puts "Dealer hits until their total at least 17 or until they bust.\n "
+    puts "Dealer hits until their total is at least 17 or until they bust.\n "
     puts 'Press enter when you are ready to play!'
     gets
   end
